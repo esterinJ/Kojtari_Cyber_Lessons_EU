@@ -1,0 +1,28 @@
+% appendix_figures.tex
+
+\appendix
+\chapter{Figure Explanations}
+\label{app:figure_explanation}
+
+\section{Figure \ref{eurlex.png}:}
+The figure shows the results of the simulation conducted using the \texttt{Simulator} package in \textsf{R}. The simulation was run for 1000 iterations with a step size of 0.1. The simulation parameters used are listed below:
+
+\begin{itemize}
+  \item Parameter 1: 0.5
+  \item Parameter 2: 0.2
+  \item Parameter 3: 0.8
+\end{itemize}
+
+The code used to generate this figure is shown below:
+
+\begin{verbatim}
+# R code to generate Figure 1
+sim_results <- Simulator::run_simulation(iterations = 1000, step_size = 0.1,
+                                         param1 = 0.5, param2 = 0.2, param3 = 0.8)
+
+plot(sim_results)
+\end{verbatim}
+
+\section{Figure 2: Data Visualization}
+Figure 2 displays a scatter plot of the data collected from the survey conducted in June 2023. The data was collected from a sample of 500 participants, and the x-axis represents their age, while the y-axis represents their satisfaction level. The data used to create this figure is available in the file \texttt{survey_data.csv}.
+
