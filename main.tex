@@ -11,7 +11,33 @@
 \usepackage{caption}
 \usepackage[]{xcolor}
 \usepackage{booktabs, multirow}
-\usepackage[style=authoryear]{biblatex} % Move biblatex package here
+\usepackage{listings}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{minted}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+ 
+\usepackage[style=apa]{biblatex} % Move biblatex package here
 \usepackage[colorlinks,linkcolor=black,urlcolor=blue,citecolor=blue]{hyperref} % Move hyperref package here
 \renewcommand*{\nameyeardelim}{\addcomma\space}
 \DeclareFieldFormat{citehyperref}{%
@@ -94,11 +120,11 @@
 %------------------------------------------------------------------------------------
 \geometry{
 	paper=a4paper, % Change to letterpaper for US letter
-	inner=2.5cm, % Inner margin
-	outer=2.5cm, % Outer margin
+	inner=3cm, % Inner margin
+	outer=3cm, % Outer margin
 	bindingoffset=0.5cm, % Binding offset
-	top=3cm, % Top margin
-	bottom=3cm, % Bottom margin
+	top=4cm, % Top margin
+	bottom=4cm, % Bottom margin
 	%showframe, % Uncomment to show how the type block is set on the page
 }
 
@@ -162,9 +188,11 @@
 \end{titlepage}
 \restoregeometry
 \vspace*{5cm}
-\begin{flushright}
-  {\parbox{4.2cm}{\textit{Dedication...}}}
-\end{flushright}
+
+% dedicaation
+%\begin{flushright}
+ % {\parbox{4.2cm}{\textit{Dedication}}}
+%\end{flushright}
 
 \thispagestyle{empty}
 %\newpage
@@ -173,7 +201,10 @@
 \vspace*{5cm}
 \renewcommand{\abstractname}{\color{MyDarkBlue}{Abstract}} 
 \begin{abstract}
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+In the evolving landscape of global security, the intersection of technology, warfare, and international relations are reshaping geopolitical dynamics. This dissertation explores the intricate dynamics of cyber defence by focusing on the Russia-Ukraine War within the broader context of the European Union's cybersecurity framework. Using a multidisciplinary framework that encompasses international relations, cybersecurity, European law, and programming languages for data analysis, this study adopts a mixed-method approach. Integrating qualitative and quantitative analyses, the research aims to uncover the complex landscape of cyber-related phenomena. Guided by theoretical concepts like Complex Interdependence, Securitisation Theory, and Neo-Functionalism, the study offers a lens to interpret cyber power dynamics and evolving state interactions in the digital age. In the first part, the study delves into the cyber dimension of the Russia-Ukraine conflict, unraveling the strategies employed, and lessons learnt. The second part shifts focus to the European Union and its members, conducting a comparative analysis of cybersecurity approaches in France, Estonia, Germany, and the Netherlands. Insights from Russian cyber operations highlight the need for a resilient strategy in critical infrastructure defence and the challenges in investment for skill development and infrastructure enhancement. Notably, the EU emerges as a normative cyber power, influencing cyber capabilities among its Member States, acting as a catalyst in shaping ongoing cyber strategies within the civil sphere rather than the military domain. The comparative analysis reveals diverse approaches in political initiatives, deterrence, economic measures, and military domain. Challenges have been underscored, including the skill gap and the need for collaboration between the public and private sectors. However, the integration with military kinetic counterparts is yet to be substantially realised.
+
+\vspace{1cm}
+\noindent\textbf{Keywords}: Cyber Operations, European Union Cyberstrategy, Ukraine-Russia War, Cyber Defence, Cyber-Kinetic Military Integration
 \end{abstract}
 %-------------------------------------INDEX
 \setcounter{page}{1}
@@ -181,8 +212,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 \tableofcontents{}
 \listoffigures{}
 \listoftables{}
-\printacronyms
-\input{chapters/acronyms}
 %\vspace*{2cm}
 %\setcounter{page}{1}
 %\pagenumbering{arabic}
@@ -192,6 +221,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapters
 \setcounter{page}{1}
 \pagenumbering{arabic}
+\include{chapters/Introduction}
 \include{chapters/methodology}
 \include{chapters/theoretical_framework}
 \include{chapters/the_securitization_of_cyberspace}
@@ -200,6 +230,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 \include{chapters/ukraine}
 \include{chapters/eu_cyber}
 \include{chapters/country_analysis}
+\include{chapters/Conclusion}
 
 
 
@@ -214,7 +245,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 \addcontentsline{toc}{chapter}{\bibname} % Add bibliography to ToC
 \printbibliography
 %-------------------------------------APPENDIX
-\appendix
+\newgeometry{margin=1in, paperwidth=8.5in} % Adjust the margin and paperwidth according to your preference
 \include{chapters/appendix}
 
 \end{document}

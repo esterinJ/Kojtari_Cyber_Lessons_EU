@@ -1,28 +1,227 @@
-% appendix_figures.tex
+\chapter*{Appendix}
+\phantomsection
+\addcontentsline{toc}{chapter}{Appendix}
+\addtocontents{toc}{\protect\contentsline{section}{Online resources and Commitment to Open-Source Research Projects}{}{}}
 
-\appendix
-\chapter{Figure Explanations}
-\label{app:figure_explanation}
+This Appendix section will contain more detailed information about code production through python with example of code snippet, summary of policy analysis of the comparison country analysis of Chapter 8. In addition, this dissertation has been written on LaTeX though Overleaf. 
 
-\section{Figure \ref{eurlex.png}:}
-The figure shows the results of the simulation conducted using the \texttt{Simulator} package in \textsf{R}. The simulation was run for 1000 iterations with a step size of 0.1. The simulation parameters used are listed below:
+All the python code (through Jupyter notebooks) are available on GitHub on my profile, which can be found on the following \href{https://github.com/esterinJ/Disssertation}{link}.
 
-\begin{itemize}
-  \item Parameter 1: 0.5
-  \item Parameter 2: 0.2
-  \item Parameter 3: 0.8
-\end{itemize}
+Furthermore, the entire Latex project is also presented on GitHub, and reachable \href{https://github.com/esterinJ/Kojtari_Cyber_Lessons_EU}{here}.
 
-The code used to generate this figure is shown below:
+The file \href{https://github.com/esterinJ/Disssertation/blob/main/general/eu_docs.csv}{stored here in GitHub} represent the list of EU documentation used for the analysis. A short description of its objective and content has been made to facilitate the writing. 
 
-\begin{verbatim}
-# R code to generate Figure 1
-sim_results <- Simulator::run_simulation(iterations = 1000, step_size = 0.1,
-                                         param1 = 0.5, param2 = 0.2, param3 = 0.8)
+The decision to publish both the analysis and code on GitHub stems not only from my commitment to openness and academic transparency, but also from a desire to contribute to future research endeavours. By providing examples of coding projects like mine, I aim to assist and inspire fellow students and scholars facing similar challenges in data research for their dissertations. Embracing a collaborative and open-source approach can foster a collective knowledge-sharing environment, easing the difficulties encountered during the research process and encouraging a sense of community among those embracing research.
 
-plot(sim_results)
-\end{verbatim}
 
-\section{Figure 2: Data Visualization}
-Figure 2 displays a scatter plot of the data collected from the survey conducted in June 2023. The data was collected from a sample of 500 participants, and the x-axis represents their age, while the y-axis represents their satisfaction level. The data used to create this figure is available in the file \texttt{survey_data.csv}.
+
+\newpage
+\addtocontents{toc}{\protect\contentsline{section}{Chapter 7}{}{}}
+
+
+\caption{Explanation of data gathering on EurLex}
+\label{def:eurlex}
+The Figure \ref{fig:eurlex.png} was obtained through a advanced research on eurlex website with the followin settings: 
+
+\textbf{Choose multiple collections}: Legal acts, International agreements, Results containing: cyber In title and text, OR: cybernetic OR cyber-physical OR cyber-attack OR cybercrime OR cybersecurity OR cyberwarfare OR cybernetics OR cyberspace OR cybernetician OR cyberneticist OR cybernetics-related OR cyber-physical systems OR cyber-physical attacks OR cyber-physical security OR cyber-physical threats OR cyber-physical vulnerabilities OR cyber threat OR cyber defense OR cyber resilience OR cyber risk OR cyber law OR cyber regulation OR information security In title and text, \textbf{Search language}: English
+
+The output was downloaded as \textit{.cvs} and then processed on a python environment to create a line plot. 
+
+
+\newpage
+\addtocontents{toc}{\protect\contentsline{section}{Chapter 8}{}{}}
+
+\
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{lllll}
+    \toprule
+    \textbf{Country} & \textbf{Estonia} & \textbf{France} & \textbf{Germany} & \textbf{Netherlands} \\
+    Year &  &  &  &  \\
+    \midrule
+    2005 & 0 & 1 & 0 & 0 \\
+    2006 & 0 & 1 & 3 & 0 \\
+    2007 & 1 & 4 & 1 & 0 \\
+    2008  & 0 & 2 & 1 & 0 \\
+    2009  & 0 & 1 & 2 & 2 \\
+    2010 & 0 & 2 & 2 & 1 \\
+    2011  & 0 & 5 & 3 & 1 \\
+    2012  & 0 & 1 & 4 & 0 \\
+    2013  & 1 & 0 & 3 & 0 \\
+    2014  & 0 & 5 & 6 & 1 \\
+    2015 & 0 & 4 & 2 & 1 \\
+    2016  & 0 & 3 & 3 & 2 \\
+    2017  & 0 & 2 & 7 & 3 \\
+    2018 & 0 & 1 & 4 & 1 \\
+    2019 & 0 & 2 & 1 & 1 \\
+    2020 & 0 & 0 & 1 & 1 \\
+    2021 & 0 & 2 & 4 & 1 \\
+    2022 & 0 & 5 & 13 & 1 \\
+    2023 & 1 & 1 & 7 & 1 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Number of Cyberattacks per year}
+  \label{tab:cyberattacks_per_year}
+\end{table}
+
+\vspace{3cm}
+
+The EuRepoC provides the opportunity to determine whether, following a cyberattack, the victim country has identified the perpetrator. It includes information about the region, country, and even the entity recognized as the attacker. After cleaning the data and excluding null values (unknown perpetrator or no information about them), the following code is employed:
+
+\vspace{3cm}
+
+\begin{listing}[H]
+\begin{minted}[mathescape, linenos, fontsize=\small, baselinestretch=1, linewidth=\linewidth]{python}
+
+# Group by receiver country and find the most attributed country for each
+most_attributed_country = df_exploded.groupby('receiver_country') \
+    ['attributed_initiator_country'].value_counts() \
+    .groupby(level=0).idxmax().str[1]
+
+# Filter out 'Unknown' and 'None', and include 'France' and 'Netherlands'
+most_attributed_country = most_attributed_country[
+    ~most_attributed_country.isin(['Unknown', 'None'])
+
+# Print the result
+print(most_attributed_country)
+
+Output:
+receiver_country
+Estonia        Russia
+France          China
+Germany        Russia
+Netherlands     China
+Name: count, dtype: object
+
+\end{minted}
+\caption{Python snippet to search for Attacker Country}
+\label{cod:attacker}
+\end{listing}
+
+\addtocontents{toc}{\protect\contentsline{section}{Country Analysis Summary}{}{}}
+
+
+Here will be summarised as table the results from the comparative analysis on analysing cyber strategies. 
+
+\begin{table}[h]
+\centering
+\renewcommand{\arraystretch}{1.5} % Adjust row height
+\caption{Actions Taken by France in Power Instrument \& Capabilities}
+\begin{tabular}{>{\raggedright}p{4cm} p{11cm}}
+\toprule
+\textbf{Power Instrument Capabilities} & \textbf{Actions Taken by France} \\
+\midrule
+\textbf{Political} & \\
+\hspace{0.2cm} Deterrence & No public available information. \\
+\hspace{0.2cm} Political Alliances & Actively engages in political alliances for collective cyber defence efforts (Strategic Review of Cyber Defence). \\
+\hspace{0.2cm} Involvement of Private Sector & Collaborates with the private sector, focussing on control over offensive actions and corporate responsibility. Encourages greater private sector control of offensive actions in cyberspace (Strategic Review of Cyber Defence). \\
+\hspace{0.2cm} Awareness Campaigns & Conducts awareness campaigns targeting SMEs and public administrations (LID). \\
+\midrule
+\textbf{Informational} & \\
+\hspace{0.2cm} Intelligence Gathering & Actively engages in intelligence gathering to attribute cyberattacks. Conducts information warfare through the Influence Computer Control (L2I) doctrine, focussing on military operations outside the national territory (L2I). \\
+\midrule
+\textbf{Economical} & \\
+\hspace{0.2cm} Protect Critical Infrastructure & Implements measures to safeguard critical infrastructure from cyber threats (Strategic Review of Cyber Defence & SIIV). \\
+\hspace{0.2cm} Invest in Skills and Infrastructure & Allocates resources for skill development and cyber infrastructure enhancement. Addresses the challenge of human resources through the Military Program Law 2019-2025 (L2I). \\
+\midrule
+\textbf{Military} & \\
+\hspace{0.2cm} Integration of Cyber-Kinetic (C\&C) & No public available information . \\
+\hspace{0.2cm} Use of Preventive (Offensive) Attacks & Adopts offensive cyber measures as preventive actions for national defense (LIO). France's COMCYBER oversees the military cyber offensive capacity, emphasizing the need for political, legal, and military risk evaluations in all phases of operations (LIO). Adopts a public position when necessary for political discourse and to differentiate from clandestine actors (LIO). Addresses challenges in accelerating offensive cyber capabilities, HR policies, training, and convergence with EU partners (LIO). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+\centering
+\renewcommand{\arraystretch}{1.5} % Adjust row height
+\caption{Actions Taken by Estonia in Power Instrument \& Capabilities}
+\begin{tabular}{>{\raggedright}p{4cm} p{11cm}}
+\toprule
+\textbf{Power Instrument Capabilities} & \textbf{Actions Taken by Estonia} \\
+\midrule
+\textbf{Political} & \\
+\hspace{0.2cm} Deterrence & Detterence by denial. \\
+\hspace{0.2cm} Political Alliances &Actively participates in international cooperation, hosting the Cooperative Cyber Defence Centre of Excellence (CCDCOE), a NATO-accredited center. Engages in bilateral cyber exercises and joint defensive operations with partners like the USCYBERCOM. \\
+\hspace{0.2cm} Involvement of Private Sector &  Prioritizes synergy between the private sector, civil society, and the state for comprehensive cybersecurity (National Security Concept 2017:16). \\
+\hspace{0.2cm} Awareness Campaigns & Public programs to increase awarness to citizens and private companies. Estonia has a priority to cyber literate itz citizens (Cyberstrategy 2019-2022) . \\
+\midrule
+\textbf{Informational} & \\
+\hspace{0.2cm} Intelligence Gathering & No public available information \\
+\midrule
+\textbf{Economical} & \\
+\hspace{0.2cm} Protect Critical Infrastructure & The Information System Authority (RIA) is the competent authority overseeing cyber crisis management and coordinating efforts with state authorities and businesses to protect critical information infrastructure \\
+\hspace{0.2cm} Invest in Skills and Infrastructure &  Challenges related to skill and specialization are acknowledged, and efforts are made to enhance national cyber resilience by involving IT experts and cybersecurity specialists. The Cyber Command subdivisions, including the ICT center and Cyber Information Operation Centre, contribute to skill development and technology domain coordination. \\
+\midrule
+\textbf{Military} & \\
+\hspace{0.2cm} Integration of Cyber-Kinetic (C\&C) &  Cyber exercises such as NATO Crossed Swords, exploring kinetic-cyber synergies in wartime scenarios \\
+\hspace{0.2cm} Use of Preventive (Offensive) Attacks & Estonia participate in offensive cyber exericises such as Baltic Blitz 23 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.5} % Adjust row height
+    \caption{Germany's Actions in Power Instrument \& Capabilities}
+    \begin{tabular}{>{\raggedright}p{4cm} p{11cm}}
+        \toprule
+        \textbf{Power Instrument Capabilities} & \textbf{Actions Taken by Germany} \\
+        \midrule
+        \textbf{Political} & \\
+        \hspace{0.2cm} Deterrence & Boosting military capabilities, with €21 billion dedicated to improving communication and cyber capabilities after the War in Ukraine. \\
+        \hspace{0.2cm} Political Alliances & Centralized governance involving the Ministry of Interior and Ministry of Defence, with a strategic position on military capabilities. \\
+        \hspace{0.2cm} Involvement of Private Sector & Collaborative efforts between public and private sectors, focusing on cybersecurity and defense. \\
+        \hspace{0.2cm} Awareness Campaigns & Public awareness programs and initiatives to enhance cybersecurity literacy. \\
+        \midrule
+        \textbf{Informational} & \\
+        \hspace{0.2cm} Intelligence Gathering & Delegated to the Federal Office of Military Counter-intelligence (BAMAD) for preventive measures, emphasizing motives, capabilities, and attack vectors. \\
+        \midrule
+        \textbf{Economical} & \\
+        \hspace{0.2cm} Protect Critical Infrastructure & Germany's National Cyber Response Centre enhances situational awareness, regulating critical infrastructure through national plans. The cybersecurity strategy prioritizes proactive measures, addressing challenges in information exchange, and expresses concerns about Europe's competitiveness in key technological domains. \\
+        \hspace{0.2cm} Invest in Skills and Infrastructure & Germany faces challenges in recruiting talents and emphasizes collaboration between the public sector, research community, private companies, and civil society. Initiatives like UP KRITIS and the National Pact on Cybersecurity aim to improve cyber measures and facilitate information and skills exchange. \\
+        \midrule
+        \textbf{Military} & \\
+        \hspace{0.2cm} Integration of Cyber-Kinetic (C\&C) & No information available about Germany's stance on cyber-kinetic integration. \\
+        \hspace{0.2cm} Use of Preventive (Offensive) Attacks & Germany opposes offensive cyber capabilities, emphasizing intelligence gathering for preventive measures through BAMAD. No offensive posture mentioned. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.5} % Adjust row height
+    \caption{Netherlands' Actions in Power Instrument \& Capabilities}
+    \begin{tabular}{>{\raggedright}p{4cm} p{11cm}}
+        \toprule
+        \textbf{Power Instrument Capabilities} & \textbf{Actions Taken by Netherlands} \\
+        \midrule
+        \textbf{Political} & \\
+        \hspace{0.2cm} Deterrence & The Netherlands establishes a robust cybersecurity infrastructure with the Dutch National Cyber Security Center (NCSC-NL), Digital Trust Center (DTC), and Cyber Security Council (CSR). Diplomatic responses to cyberattacks and active participation in EU tools strengthen international alliances. \\
+        \hspace{0.2cm} Political Alliances & Actively contributing to NATO missions showcases a commitment to international cooperation. \\
+        \hspace{0.2cm} Involvement of Private Sector & The Digital Trust Center (DTC) engages in a three-year program securing digital businesses, especially SMEs. \\
+        \hspace{0.2cm} Awareness Campaigns & Investments in cybersecurity awareness, education, and expertise, including targeted information campaigns, integration of cybersecurity skills in education, and collaboration with the business community. \\
+        \midrule
+        \textbf{Informational} & \\
+        \hspace{0.2cm} Intelligence Gathering & Robust intelligence gathering capabilities, with the Defence Intelligence and Security Service (DISS) contributing to the National Detection Network (NDN) and providing the basis for offensive cyber capabilities. \\
+        \midrule
+        \textbf{Economical} & \\
+        \hspace{0.2cm} Protect Critical Infrastructure & Nationwide Network of Cybersecurity Partnership (LDS) established for information sharing. Emphasis on applying secure-by-design principles to hardware and software assets. National Plan for Digital Incidents prepared for coordinated response. \\
+        \hspace{0.2cm} Invest in Skills and Infrastructure & Investments of €111 million in cyber resilience, including strengthening critical infrastructure and improving defence cyber capabilities. \\
+        \midrule
+        \textbf{Military} & \\
+        \hspace{0.2cm} Integration of Cyber-Kinetic (C\&C) & Promotion of Joint Cyber Mission Teams for integrating cyber weapons in wartime scenarios. Establishment of cyber defence command underscores the importance of cybersecurity in military affairs. \\
+        \hspace{0.2cm} Use of Preventive (Offensive) Attacks & Development of offensive cyber capabilities with a proactive approach to countering cyber threats. Legislative initiatives demonstrate a commitment to addressing operational challenges. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+
+
+
 
