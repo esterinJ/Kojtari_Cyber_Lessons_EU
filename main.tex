@@ -15,6 +15,8 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{minted}
+\usepackage{pdfpages}
+
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -142,62 +144,98 @@
 %----------------------------- Frontispiece
 \newgeometry{margin=0.8in}
 \begin{titlepage}
+   % \begin{center}
+    %    \vspace*{0.2cm}
+     %   {\fontsize{19pt}{20pt}\selectfont Alma Mater Studiorum - Universit{\ag} di Bologna\par}
+    %  \noindent\hrulefill
+      %  \vspace{0.8cm}
+        
+        \Large
+
     \begin{center}
+        \includegraphics[width=6cm]{logo.png} % Add your logo file (replace "logo.png" with the actual filename)
         \vspace*{0.2cm}
-        {\fontsize{19pt}{20pt}\selectfont \textbf{Alma Mater Studiorum - Universit{\ag} di Bologna}\par}
+        
+        {\fontsize{18pt}{20pt}\selectfont Alma Mater Studiorum - Universit{\ag} di Bologna\par}
     
         \noindent\hrulefill
+        \vspace{0.4cm}
+        
+        \Large
+        
+        \textbf{SECOND CYCLE DEGREE/TWO YEAR
+MASTER IN INTERNATIONAL POLITICS AND ECONOMICS}
+
         \vspace{0.8cm}
+
+
+        \Large
+        {\fontsize{21pt}{20}\textcolor{MyDarkBlue}{\textit{GRADUATION THESIS}}} \\
+        \vspace{0.2cm}
+    
+        \textit{in}
+        
+        \vspace{0.2cm}
+        {\fontsize{16pt}{16pt}\textit{Cybersecurity and International Business}}
         
         \Large
-        
-        Department of Political and Social Science
-        
-        Master's Degree in International Politics and Economics
-        
-        \Large
-        \vspace{5cm}
+        \vspace{1cm}
         {\fontsize{21pt}{20}\textcolor{MyDarkBlue}{\textbf{Exploring the Cyber Dimension of War in Ukraine: Key Lessons for the EU}}}
 
         
-        \vspace{1cm}
-        {\fontsize{16pt}{16pt}Thesis in Cybersecurity and International Business}
         
-        \vspace{4.5cm}
-        \begin{minipage}[t]{0.34\textwidth}
-        \begin{flushleft}
-        {\fontsize{16pt}{16pt}Candidate: \\ \textbf{\textcolor{MyDarkBlue}{Esterin Kojtari}}}
-        \end{flushleft}
-        \end{minipage}
-        \begin{minipage}[t]{0.64\textwidth}
-        \begin{flushright} \Large
-        Supervisor: \\
-        \textbf{\textcolor{MyDarkBlue}{Chiar.mo Prof.}} \\ \textbf{\textcolor{MyDarkBlue}{Luigi Martino}} 
-        \end{flushright}
-        \end{minipage}\\
+        
+        \vspace{2.0cm}
+\begin{minipage}[t]{0.34\textwidth}
+  \begin{flushleft}
+    {\fontsize{16pt}{16pt}CANDIDATE
+    \vspace{0.5cm}
+    \\ \textcolor{MyDarkBlue}{\textit{Esterin Kojtari}}}
+  \end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.64\textwidth}
+  \begin{flushright}
+    \Large
+    SUPERVISORS \\
+    \vspace{0.5cm}
+    \textcolor{MyDarkBlue}{\textit{Prof. Luigi Martino}} \\
+    \textcolor{MyDarkBlue}{\textit{Prof. Giampiero Giacomello}}\\  
+  \end{flushright}
+\end{minipage}\\
+
         
         \vfill
         \noindent\hrulefill
-        \vspace{0.3cm}
         \Large
         
-        Appello {\textcolor{MyDarkBlue} {IV}} 
+
         
-        Anno Accademico {\textcolor{MyDarkBlue} {2022-2023}}
+        \textit{Academic Year 2022-2023}
+
+        \textit{IV Session}
     \end{center}
 \end{titlepage}
 \restoregeometry
-\vspace*{5cm}
 
 % dedicaation
-%\begin{flushright}
- % {\parbox{4.2cm}{\textit{Dedication}}}
-%\end{flushright}
+\clearpage % This ensures any pending figures or tables are printed before the empty page
+\thispagestyle{empty} % Removes headers, footers, and page numbers for the empty page
+\begin{flushright}
+{\parbox{4.2cm}{\textit{Elya, firmamentum affectuum meorum et vis stabilis in profunditatibus meae essentiae. \\[10pt] Familiae meae, columnae inconcussae meae essentiae. \\[10pt] CdS Sharpey, pro animando itinere.}}}
+\end{flushright}
 
-\thispagestyle{empty}
+\clearpage % This ensures any pending figures or tables are printed before the empty page
+\thispagestyle{empty} % Removes headers, footers, and page numbers for the empty page
+
 %\newpage
+\includepdf[pages=-]{statement.pdf}
+
+\clearpage % Start a new page
+
+
+
 %-------------------------------------ABSTRACT
-%\thispagestyle{empty}
+\thispagestyle{empty}
 \vspace*{5cm}
 \renewcommand{\abstractname}{\color{MyDarkBlue}{Abstract}} 
 \begin{abstract}
@@ -209,12 +247,13 @@ In the evolving landscape of global security, the intersection of technology, wa
 %-------------------------------------INDEX
 \setcounter{page}{1}
 \pagenumbering{roman}
-\tableofcontents{}
-\listoffigures{}
-\listoftables{}
-%\vspace*{2cm}
-%\setcounter{page}{1}
-%\pagenumbering{arabic}
+    \tableofcontents{}
+    \listoffigures{}
+    \listoftables{}
+
+\clearpage % This ensures any pending figures or tables are printed before the empty page
+\thispagestyle{empty} % Removes headers, footers, and page numbers for the empty page
+\newpage % Starts a new page
 
 
 
